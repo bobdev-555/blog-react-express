@@ -1,6 +1,21 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const { Sequelize } = require('sequelize')
+
+const sequelize = new Sequelize('blogposts', 'postgres', 'asd', {
+    host: 'localhost',
+    dialect: 'postgres'
+});
+
+sequelize.authenticate()
+    .then(() => {
+        console.log("Connected");
+    })
+    .catch(() => {
+        console.log("An error occured in connection")
+    })
+
 
 const app = express()
 
@@ -21,4 +36,8 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
     console.log(`Server is runnig on port ${PORT}`)
+})
+
+app.on('close', () => {
+    sequelize.close()
 })
