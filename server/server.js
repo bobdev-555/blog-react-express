@@ -7,15 +7,16 @@ const sequelize = new Sequelize('blogposts', 'postgres', 'asd', {
     dialect: 'postgres'
 })
 
-try {
-    await sequelize.authenticate()
-    console.log('Connection has been established successfully.')
-} catch (error) {
-    console.error('Unable to connect to the database: ', error)
-}
+sequelize.authenticate()
+    .then(() => {
+        console.log("It's connected to Database");
+    })
+    .catch(() => {
+        console.log("An error occured")
+    })
 
 const server = new createServer((req, res) => {
-
+    
 })
 
 server.listen(PORT, (req, res) => {
