@@ -1,46 +1,24 @@
-const { createServer } = require('http')
-const { Sequelize } = require('sequelize')
-const PORT=8000
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 
-const sequelize = new Sequelize('blogposts', 'postgres', 'asd', {
-    host: 'localhost',
-    dialect: 'postgres'
+const app = express()
+
+var corsOptions = {
+    origin: "http://localhost:8081"
+}
+
+app.use(cors(corsOptions))
+
+app.use(express.json())
+
+app.use(express.urlencoded({ extended: true }))
+
+app.get('/', (req, res) => {
+    res.json({ message: "Welcome to postgresql application" })
 })
 
-sequelize.authenticate()
-    .then(() => {
-        console.log("It's connected to Database");
-    })
-    .catch(() => {
-        console.log("An error occured")
-    })
-
-const server = new createServer((req, res) => {
-
-    const User = sequelize.define(
-        'User',
-        {
-          // Model attributes are defined here
-          firstName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-          },
-          lastName: {
-            type: DataTypes.STRING,
-            // allowNull defaults to true
-          },
-        },
-        {
-          // Other model options go here
-        },
-      );
-    
+const PORT = process.env.PORT || 8080
+app.listen(PORT, () => {
+    console.log(`Server is runnig on port ${PORT}`)
 })
-
-server.listen(PORT, (req, res) => {
-    console.log(`Server is running on port ${PORT}`)
-})
-
-server.on('close', () => {
-    sequelize.close()
-}) 
