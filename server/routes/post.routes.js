@@ -6,7 +6,10 @@ module.exports = app => {
     var router = require('express').Router()
 
     router.post('/', validateToken, posts.insertPosts)
-    router.get('/', validateToken, posts.getAllPosts)
+    router.get('/', validateToken, posts.getUserPosts)
+    router.get('/all', posts.getAllPosts)
+    router.delete('/', validateToken, posts.deleteOnePost)
+    router.delete('/all', validateToken, posts.deleteAllPost)
 
     app.use('/api/posts', router)
 }
