@@ -7,8 +7,8 @@ const jwt = require('jsonwebtoken')
 const saltRounds = 10
 
 exports.getUsers = (req, res) => {
-    console.log(res.locals.user)
-    User.findOne({ where: { id: res.locals.user }, attributes: { exclude: ['password'] } })
+    console.log(res.locals.userID)
+    User.findOne({ where: { id: res.locals.userID }, attributes: { exclude: ['password'] } })
     .then(data => {
       res.send(data);
     })
