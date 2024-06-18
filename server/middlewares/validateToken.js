@@ -7,6 +7,7 @@ module.exports = function validateToken(req, res, next) {
     try {
         const token = req.header(tokenHeaderKey)
         const verified = jwt.verify(token, jwtSecretKey)
+        console.log(verified)
         if (verified) {
             next()
         } else {
