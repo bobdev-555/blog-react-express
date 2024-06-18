@@ -7,7 +7,8 @@ const jwt = require('jsonwebtoken')
 const saltRounds = 10
 
 exports.getUsers = (req, res) => {
-    User.findAll()
+    console.log(res.locals.user)
+    User.findOne({ where: { id: res.locals.user }, attributes: { exclude: ['password'] } })
     .then(data => {
       res.send(data);
     })
@@ -27,7 +28,7 @@ exports.login = async (req, res) => {
         return;
     }
 
-    const result = await User.findOne({where: {name: req.body.name}})
+    const result = await User.findOne({ where: { name: req.body.name } })
 
     bcrypt.compare(req.body.password, result.password, (err, isMatched) => {
         if (err) {
@@ -90,7 +91,7 @@ exports.create = async (req, res) => {
                   // Save User in the database
                 User.create(user)
                     .then(data => {
-                      res.send(data);
+                      res.send("Created successfully");
                     })
                     .catch(err => {
                       res.status(500).send({

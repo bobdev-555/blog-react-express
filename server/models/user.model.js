@@ -19,8 +19,16 @@ module.exports = (sequelize, Sequelize) => {
             },
         },
         {
-            timestamps: false
+            timestamps: false,
+            instanceMethods: {
+                toJSON: function () {
+                  var values = Object.assign({}, this.get());
+                  delete values.password;
+                  return {'foo':'bar'};
+                }
+              }
         },
+        
     )
 
     return User
