@@ -23,8 +23,7 @@ db.sequelize.sync().then(() => {
     console.log("Drop and re-sync db.");
   });
 
-require('./routes/user.routes')(app)
-require('./routes/post.routes')(app)
+require('./routes')(app)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {

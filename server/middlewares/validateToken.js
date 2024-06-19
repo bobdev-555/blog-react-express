@@ -8,7 +8,7 @@ module.exports = function validateToken(req, res, next) {
         const token = req.header(tokenHeaderKey)
         const verified = jwt.verify(token, jwtSecretKey)
         if (verified) {
-            res.locals.userID = verified.userId
+            req.userID = verified.userId
             next()
         } else {
             res.send("No matched")
