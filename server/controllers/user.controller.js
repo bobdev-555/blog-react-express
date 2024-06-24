@@ -10,7 +10,7 @@ exports.getUsers = (req, res) => {
     console.log(req.userID)
     User.findOne({ where: { id: req.userID }, attributes: { exclude: ['password'] } })
     .then(data => {
-      res.send(data);
+      res.status(200).send(data);
     })
     .catch(err => {
       res.status(500).send({
@@ -30,7 +30,8 @@ exports.login = async (req, res) => {
 
     const result = await User.findOne({ where: { name: req.body.name } })
 
-    bcrypt.compare(req.body.password, result.password, (err, isMatched) => {
+    if(result !== null) {
+      bcrypt.compare(req.body.password, result.password, (err, isMatched) => {
         if (err) {
             console.error('Error comparing passwords:', err);
             return;
@@ -44,26 +45,34 @@ exports.login = async (req, res) => {
             let data = {
                 time: Date(),
                 userId: result.id,
+                exp: Math.floor(Date.now() / 1000) + (60 * 60)
             }
             const token = jwt.sign(data, jwtSecretKey);
-            res.send(token)
+            console.log(typeof token)
+            res.status(200).send({data: token, uId: result.id})
 
         } else {
             // Passwords don't match, authentication failed
+            res.status(401).send()
             console.log('Passwords do not match! Authentication failed.');
 
         }
-    })
+      })
+    } else {
+      res.status(204).send({data: "", uId: ""})
+      console.log("Not Found User")
+    }
+    
 }
 
 exports.create = async (req, res) => {
+    console.log(JSON.stringify(req.body), req.body.name)
     if (!req.body.name) {
         res.status(400).send({
           message: "Content can not be empty!"
         });
         return;
     }
-
     const result = await User.findOne({where: {name: req.body.name}})
     
     if(result === null) {
@@ -91,7 +100,7 @@ exports.create = async (req, res) => {
                   // Save User in the database
                 User.create(user)
                     .then(data => {
-                      res.send("Created successfully");
+                      res.status(201).send({ message: "Created successfully" });
                     })
                     .catch(err => {
                       res.status(500).send({
@@ -107,6 +116,6 @@ exports.create = async (req, res) => {
         console.log('empty')
     } else {
         console.log(result)
-        res.send('Already exists')
+        res.status(203).send({ message: "Already exists" })
     }    
 }
