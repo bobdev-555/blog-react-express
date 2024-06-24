@@ -5,7 +5,7 @@ module.exports = (sequelize, Sequelize) => {
         'users', {
             id: {
                 type: DataTypes.INTEGER,
-                allowNull: true,
+                allowNull: false,
                 primaryKey: true,
                 autoIncrement: true,
             },
