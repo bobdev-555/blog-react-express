@@ -33,6 +33,7 @@ function App() {
       } 
     })
     const data = await res.json()
+    console.log(data)
     setPosts(data)
   }
 
@@ -59,9 +60,9 @@ function App() {
       }
     })
     const data = await res.json()
-    localStorage.setItem("token", data.data)
-    localStorage.setItem("userId", data.uId)
     if(data.data.length > 0) {
+      localStorage.setItem("token", data.data)
+      localStorage.setItem("userId", data.uId)
       setSigned(true)
     } else {
       alert("Please sign-up first")

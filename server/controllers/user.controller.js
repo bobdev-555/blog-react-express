@@ -59,7 +59,7 @@ exports.login = async (req, res) => {
         }
       })
     } else {
-      res.status(204).send({data: "", uId: ""})
+      res.send({data: "", uId: ""})
       console.log("Not Found User")
     }
     

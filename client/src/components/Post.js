@@ -1,8 +1,13 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const Post = ({ post, onDelete, onUpdate }) => {
   const [editable, setEditable] = useState(false)
   const [content, setContent] = useState(post.content)
+
+  useEffect(() => {
+    setEditable(false)
+    setContent(post.content)
+  }, [post])
 
   const edit = () => {
     const userId = localStorage.getItem("userId")

@@ -4,7 +4,7 @@ const { posts } = require('../models')
 // const Post = db.posts
 
 exports.deleteOnePost = async (req, res) => {   
-    await posts.destroy({ where: { id: req.params.id } })
+    await posts.destroy({ where: { id: req.params.id, user_id: req.userID } })
         .then(data => {
             res.status(202).send({message: "deleted"});
         })
@@ -29,9 +29,10 @@ exports.deleteAllPost = async (req, res) => {
 
 
 exports.getUserPosts = (req, res) => {
-    posts.findAll({order: ['id']},{ where: { user_id: req.userID }})
+    console.log('get user posts')
+    posts.findAll({ where: { user_id: req.userID }})
         .then(data => {
-            res.status(200).send(data);
+            res.send(data);
         })
         .catch(err => {
             res.status(500).send({
@@ -45,7 +46,7 @@ exports.getAllPosts = (req, res) => {
 
     posts.findAll()
         .then(data => {
-            res.status(200).send(data);
+            res.send(data);
         })
         .catch(err => {
             res.status(500).send({
