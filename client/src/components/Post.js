@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-const Post = ({ post, onDelete, onUpdate }) => {
+const Post = ({ post, onDelete, onUpdate, editor }) => {
   const [editable, setEditable] = useState(false)
   const [content, setContent] = useState(post.content)
 
@@ -14,7 +14,9 @@ const Post = ({ post, onDelete, onUpdate }) => {
     if(parseInt(userId) !== post.user_id) {
       return
     }
-    setEditable((editable) => !editable)
+    if(editor) {
+      setEditable((editable) => !editable)
+    }
   }
 
   const update = (postId) => {

@@ -29,7 +29,6 @@ exports.deleteAllPost = async (req, res) => {
 
 
 exports.getUserPosts = (req, res) => {
-    console.log('get user posts')
     posts.findAll({ where: { user_id: req.userID }})
         .then(data => {
             res.send(data);
@@ -42,8 +41,6 @@ exports.getUserPosts = (req, res) => {
 }
 
 exports.getAllPosts = (req, res) => {
-    console.log('hei')
-
     posts.findAll()
         .then(data => {
             res.send(data);
@@ -81,10 +78,7 @@ exports.insertPosts = (req, res) => {
         user_id: req.userID,
         createdAt: Date(),
     };
-
-    console.log(post)
     
-      // Save User in the database
     posts.create(post)
         .then(data => {
           res.status(201).send(data);
