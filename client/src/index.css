@@ -1,13 +1,137 @@
-body {
+.App {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home h1 {
+  font-size: 90px;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: lighter;
+}
+
+.container {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+.controller {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.post {
+  background-color: aliceblue;
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  margin: 10px 0 10px 0;
+}
+
+.post p{
+  width: 600px;
+}
+
+.control {
+  display: flex;
+  gap: 20px;
+}
+
+.signOption {
+  background-color: aqua;
+  padding: 30px 10px 30px 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.signOption p {
+  color: rgb(236, 14, 14);
+  font-size: small;
+}
+
+.blogEditor {
+  background-color: aqua;
+  padding: 30px 10px 30px 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.blogEditor input {
+  margin-bottom: 30px;
+}
+
+.blogEditor textarea {
+  width: 300px;
+  height: 150px;
+}
+
+.post textarea {
+  width: 600px;
+  height: 100px;
+}
+
+.btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.btn #update{  
+  border: none;
+  border-radius: 3px;
+  background-color: rgb(21, 221, 21);
+  color: #fff;
+  width: 100px;
+  height: 30px;
+}
+
+
+.btn #delete{  
+  border: none;
+  border-radius: 3px;
+  background-color: rgb(221, 44, 21);
+  color: #fff;
+  width: 100px;
+  height: 30px;
+}
+
+#control-btn {
+  border: none;
+  border-radius: 3px;
+  background-color: rgb(21, 221, 21);
+  color: #fff;
+  width: 150px;
+  height: 30px;
 }

@@ -16,7 +16,6 @@ module.exports = function validateToken(req, res, next) {
             console.log("expired")
         } else {
             req.userID = decoded.userId
-            console.log(decoded.userId)
             next()
         }
     } catch (error) {

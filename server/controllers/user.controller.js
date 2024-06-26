@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken')
 const saltRounds = 10
 
 exports.getUsers = (req, res) => {
-    console.log(req.userID)
     User.findOne({ where: { id: req.userID }, attributes: { exclude: ['password'] } })
     .then(data => {
       res.status(200).send(data);
@@ -38,9 +37,6 @@ exports.login = async (req, res) => {
         }
 
         if (isMatched) {
-            // Passwords match, authentication successful
-            console.log('Passwords match! User authenticated.');
-
             let jwtSecretKey = process.env.JWT_SECRET_KEY;
             let data = {
                 time: Date(),
@@ -48,7 +44,6 @@ exports.login = async (req, res) => {
                 exp: Math.floor(Date.now() / 1000) + (60 * 60)
             }
             const token = jwt.sign(data, jwtSecretKey);
-            console.log(typeof token)
             res.status(200).send({data: token, uId: result.id})
 
         } else {
@@ -59,14 +54,13 @@ exports.login = async (req, res) => {
         }
       })
     } else {
-      res.status(204).send({data: "", uId: ""})
+      res.send({data: "", uId: ""})
       console.log("Not Found User")
     }
     
 }
 
 exports.create = async (req, res) => {
-    console.log(JSON.stringify(req.body), req.body.name)
     if (!req.body.name) {
         res.status(400).send({
           message: "Content can not be empty!"
@@ -94,8 +88,6 @@ exports.create = async (req, res) => {
                     name: req.body.name,
                     password: hash
                 };
-            
-                console.log(user)
                 
                   // Save User in the database
                 User.create(user)
@@ -111,11 +103,7 @@ exports.create = async (req, res) => {
             });
             // Salt generation successful, proceed to hash the password
             });
-    
-          // Create a user
-        console.log('empty')
     } else {
-        console.log(result)
         res.status(203).send({ message: "Already exists" })
     }    
 }
